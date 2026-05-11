@@ -132,4 +132,40 @@ def place_sale(inventory, sales, item_id, quantity, username):
         item["flagged"] = True
  
     total = round(item["price"] * quantity, 2)
+
+    new_sale = {
+        "sale_id": str(uuid.uuid4())[:8].upper(),
+        "item": item["name"],
+        "item_id": item_id,
+        "quantity": quantity,
+        "unit_price": item["price"],
+        "total": total,
+        "logged_by": username,
+        "date": time.strftime("%Y-%m-%d %H:%M")
+    }
+    sales.append(new_sale)
+    return new_sale, "Sale recorded."
+
+def get_low_stock_items(inventory):
+    low_items = []
+    for item in inventory:
+        if item["stock"] < 5:
+            low_items.append(item)
+    return low_items
+ 
+ 
+def get_total_inventory_value(inventory):
+    total = 0
+    for item in inventory:
+        total = total + (item["price"] * item["stock"])
+    return round(total, 2)
+ 
+ 
+def get_sales_by_employee(sales, username):
+    my_sales = []
+    for sale in sales:
+        if sale["logged_by"] == username:
+            my_sales.append(sale)
+    return my_sales
+ 
  
