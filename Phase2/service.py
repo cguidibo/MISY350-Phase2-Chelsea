@@ -98,3 +98,38 @@ def update_item(inventory, item_id, price, add_stock, category):
         item["flagged"] = False
  
     return True, item["name"] + " updated."
+
+def delete_item(inventory, item_id):
+    item = find_item_by_id(inventory, item_id)
+    if item is None:
+        return False, "Item not found."
+ 
+    inventory.remove(item)
+    return True, "Product removed."
+ 
+ 
+def toggle_flag(inventory, item_id):
+    item = find_item_by_id(inventory, item_id)
+    if item is None:
+        return False
+    if item["flagged"] == True:
+        item["flagged"] = False
+    else:
+        item["flagged"] = True
+    return True
+ 
+ 
+def place_sale(inventory, sales, item_id, quantity, username):
+    item = find_item_by_id(inventory, item_id)
+    if item is None:
+        return None, "Item not found."
+    if item["stock"] < quantity:
+        return None, "Not enough stock. Only " + str(item["stock"]) + " available."
+ 
+    item["stock"] = item["stock"] - quantity
+ 
+    if item["stock"] < 5:
+        item["flagged"] = True
+ 
+    total = round(item["price"] * quantity, 2)
+ 
