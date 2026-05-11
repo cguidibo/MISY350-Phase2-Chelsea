@@ -168,4 +168,17 @@ def get_sales_by_employee(sales, username):
             my_sales.append(sale)
     return my_sales
  
+
+ #AI Assistance
+class ShopAssistantBot:
+    def __init__(self, api_key, inventory_context):
+        self.client = OpenAI(api_key=api_key)
+        self.inventory_context = inventory_context
+ 
+    def build_ai_prompt(self):
+        prompt = "You are a helpful shop assistant for a bakery shop inventory portal.\n"
+        prompt = prompt + "Answer user questions based on the shop data provided below.\n"
+        prompt = prompt + "If the answer is not in the data, say you do not have enough information.\n\n"
+        prompt = prompt + "SHOP DATA:\n" + self.inventory_context
+        return prompt
  
