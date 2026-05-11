@@ -181,4 +181,17 @@ class ShopAssistantBot:
         prompt = prompt + "If the answer is not in the data, say you do not have enough information.\n\n"
         prompt = prompt + "SHOP DATA:\n" + self.inventory_context
         return prompt
+    
+    def get_ai_response(self, chat_history):
+        ai_prompt = self.build_ai_prompt()
+        ai_prompt_message = [{"role": "system", "content": ai_prompt}]
+        messages = ai_prompt_message + chat_history
+ 
+        response = self.client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messages,
+            temperature=0.2
+        )
+        return response.choices[0].message.content
+ 
  
