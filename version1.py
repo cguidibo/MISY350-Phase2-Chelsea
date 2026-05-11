@@ -605,7 +605,7 @@ elif st.session_state["role"] == "Employee":
     user = st.session_state["user"]
 
     if st.session_state["page"] == "home":
-        st.title(f"🏪 Welcome, {user['username']}!")
+        st.title(f"Welcome, {user['username']}!")
         st.markdown("What would you like to do today?")
         st.divider()
 
@@ -632,7 +632,7 @@ elif st.session_state["role"] == "Employee":
             st.session_state["page"] = "home"
             st.rerun()
 
-        st.header("🛒 Log a Sale")
+        st.header(" Log a Sale")
         inventory = st.session_state["inventory"]
         available = [i for i in inventory if i["stock"] > 0]
 
@@ -666,7 +666,7 @@ elif st.session_state["role"] == "Employee":
                                  use_container_width=True, key="create_order_btn"):
                         if selected_item["stock"] < quantity:
                             st.error(
-                                f"❌ Not enough stock — only **{selected_item['stock']}** available."
+                                f" Not enough stock — only **{selected_item['stock']}** available."
                             )
                         else:
                             with st.spinner("Creating order..."):
