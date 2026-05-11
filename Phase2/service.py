@@ -24,3 +24,17 @@ class Owner(User):
 class Employee(User):
     def __init__(self, username, password):
         super().__init__(username, password, "Employee")
+
+def find_user(users, username, password):
+    for u in users:
+        if u["username"] == username and u["password"] == password:
+            found_user = User(u["username"], u["password"], u["role"])
+            return found_user
+    return None
+ 
+ 
+def username_taken(users, username):
+    for u in users:
+        if u["username"] == username:
+            return True
+    return False
