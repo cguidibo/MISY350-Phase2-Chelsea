@@ -8,3 +8,8 @@ def load_data(json_path):
         return data
     else:
         return []
+    
+
+def save_data(json_path, data):
+    with open(json_path, "w") as f:
+        json.dump(data, f, indent=2)
